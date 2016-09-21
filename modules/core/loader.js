@@ -14,16 +14,16 @@ var run = function(Bot, msg) {
         if (msg.arguments.length < 1) reject('usage');
         if (msg.command === "load") { // Plain old load
             Bot.commandHandler.load(msg.arguments[0])
-                .then((name) => { Bot.smartEdit(msg, `${success_emoji} Loaded command "${name}"`); resolve(); })
-                .catch((err) => { Bot.errorEdit(msg, err); reject(err); });
+                .then(name => { Bot.smartEdit(msg, `${success_emoji} Loaded command "${name}"`); resolve(); })
+                .catch(err => { Bot.errorEdit(msg, err); reject(err); });
         } else if (msg.command === "reload") { // Plain old reload
             Bot.commandHandler.reload(msg.arguments[0])
-                .then((name) => { Bot.smartEdit(msg, `${success_emoji} Reloaded command "${name}"`); resolve(); })
-                .catch((err) => { Bot.errorEdit(msg, err); reject(err); });
+                .then(name => { Bot.smartEdit(msg, `${success_emoji} Reloaded command "${name}"`); resolve(); })
+                .catch(err => { Bot.errorEdit(msg, err); reject(err); });
         } else if (msg.command === "unload") { // Plain ol' unload!
             Bot.commandHandler.unload(msg.arguments[0])
-                .then((res) => { Bot.smartEdit(msg, `${success_emoji} Unloaded command "${res.name}"`); resolve(); })
-                .catch((err) => { Bot.errorEdit(msg, err); reject(err); });
+                .then(res => { Bot.smartEdit(msg, `${success_emoji} Unloaded command "${res.name}"`); resolve(); })
+                .catch(err => { Bot.errorEdit(msg, err); reject(err); });
         }
     });
 }

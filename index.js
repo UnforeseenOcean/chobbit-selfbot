@@ -40,7 +40,7 @@ Bot.on("ready", () => {
     console.info(`| connecting: ${Date.now() - Bot.timing.conn_start}ms`);
 });
 
-Bot.on("messageCreate", (msg) => {
+Bot.on("messageCreate", msg => {
     if (_.contains(Bot.config.get('discord.authorized'), msg.author.id)) {
         var prefixes = Bot.config.get('discord.prefixes');
 
@@ -53,7 +53,7 @@ Bot.on("messageCreate", (msg) => {
         }
 
         if (_.has(msg, 'prefix')) {
-            Bot.messageParser.parse(Bot, msg).then((parsed) => {
+            Bot.messageParser.parse(Bot, msg).then(parsed => {
                 // Note: does *not* work if command is not loaded (wowee Sherlock!)
                 if (Bot.commandHandler.trigger_exists(parsed.command)) {
                     Bot.commandHandler.get_by_trigger(parsed.command)

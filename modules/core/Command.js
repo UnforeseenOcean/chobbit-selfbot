@@ -16,8 +16,8 @@ class Command {
     run(Bot, msg) {
         return new Promise((resolve, reject) => {
             this.run(Bot, msg)
-                .then((ret) => { resolve(ret); })
-                .catch((err) => { reject(err); });
+                .then(ret => resolve(ret))
+                .catch(err => reject(err));
         });
     }
 }
