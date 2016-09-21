@@ -29,16 +29,16 @@ class CommandHandler {
 
     load(file, full_path=false) {
         return new Promise((resolve, reject) => {
-            if (!_.isString(file)) throw new Error("Invalid arguments");
+            if (!_.isString(file)) throw new Error("Invalid arguments (ch.load)");
 
             let path = full_path ? file : this.path + file;
             let temp = require(path);
 
-            if (!(temp instanceof Command)) throw new Error("Not a command");
-            if (this.is_loaded(temp.name)) throw new Error("Already loaded");
+            if (!(temp instanceof Command)) throw new Error("Not a command (ch.load)");
+            if (this.is_loaded(temp.name)) throw new Error("Already loaded (ch.load)");
 
             for (let trigger of temp.triggers) {
-                if (this.trigger_exists(trigger)) throw new Error("Trigger conflict!");
+                if (this.trigger_exists(trigger)) throw new Error("Trigger conflict! (ch.load)");
             }
 
             // Checks passed, actually register
@@ -49,16 +49,20 @@ class CommandHandler {
                 this.triggers[trigger] = temp.name;
             }
 
-            resolve(temp.name, this.loaded[temp.name]);
+            console.info(`* Loaded command "${temp.name}" (${temp.path})`);
+            resolve(temp.name);
         });
     }
 
     unload(name) {
         return new Promise((resolve, reject) => {
-            if (!_.isString(name)) throw new Error("Invalid arguments");
-            if (!this.is_loaded(name)) throw new Error("Not loaded");
+            if (!_.isString(name)) throw new Error("Invalid arguments (ch.unload)");
+            if (!this.is_loaded(name)) throw new Error("Not loaded (ch.unload)");
 
             let temp = this.loaded[name];
+            let path = temp.path;
+
+            console.info(`* Unloading command "${name}" (${temp.path})`);
 
             delete require.cache[require.resolve(temp.path)];
             delete this.loaded[name];
@@ -67,13 +71,23 @@ class CommandHandler {
                 delete this.triggers[trigger];
             }
 
-            resolve(name, temp.path);
+            resolve({name: name, path: path});
         });
     }
 
-    reload(name, path=false) {
+    reload(name) {
         return new Promise((resolve, reject) => {
-            throw new Error("Not Implemented");
+            if (!this.is_loaded(name)) throw new Error("Not loaded (ch.reload)");
+
+            console.info(`* Reloading command "${name}"`);
+
+            this.unload(name)
+                .then((res) => {
+                    console.log(`Calling load with (${res.name} ${typeof res.name}) ${res.path} (${typeof res.path})`) // DEV
+                    this.load(res.path).then((res) => {
+                        resolve(res.name);
+                    });
+                });
         });
     }
 
@@ -82,9 +96,10 @@ class CommandHandler {
             fs.readdir(path).then(listing => {
                 for (let filename of listing) {
                     this.load(filename)
-                        .then((name) => console.info(`* Loaded command "${name}" (${filename})`));
                 }
             });
+
+            resolve(this.loaded.length);
         });
     }
 }
