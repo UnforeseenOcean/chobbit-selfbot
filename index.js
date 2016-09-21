@@ -9,6 +9,7 @@
 const Eris = require("eris");
 const config = require("config");
 const _ = require("underscore");
+const Emoji = require("node-emoji").emoji;
 
 const MessageParser = require("./modules/core/message_parser.js");
 const CommandHandler = require("./modules/core/command_handler.js");
@@ -26,6 +27,12 @@ Bot.smartEdit = function(msg, edit) {
     setTimeout(() => Bot.editMessage(msg.channel.id, msg.id, edit), 500);
 }
 
+// Because retyping it every time sucks
+Bot.errorEdit = function(msg, err) {
+    setTimeout(() => Bot.editMessage(msg.channel.id, msg.id, `${Emoji.no_entry} Oops..` + "\n```\n" + err + "```"), 500);
+}
+
+Bot.commandHandler.load("../core/loader.js", true); // Core un-/re-/load command
 Bot.commandHandler.crawl("modules/commands"); // Crawl command directory
 
 Bot.on("ready", () => {

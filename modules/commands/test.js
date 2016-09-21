@@ -1,7 +1,7 @@
 const Command = require("../core/Command.js");
 const Emoji = require("node-emoji").emoji;
 
-name = "Test Command";
+name = "Test";
 triggers = ["test", "testificate"];
 
 run = function(Bot, msg) {
