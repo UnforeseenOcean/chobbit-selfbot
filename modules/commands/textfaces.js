@@ -33,20 +33,26 @@ const faces = {
 
 const run = function(Bot, msg) {
     return new Promise((resolve, reject) => {
-        let face;
+        let face = new String();
         if (msg.arguments.length > 0) {
             if (msg.arguments[0] === "list") {
                 face = `${_.sample(faces)} Available textfaces:` + "\n\n";
-                for (textface in faces) { face += ' `' + textface + '`'; }
+                for (let textface in faces) { face += ' `' + textface + '`'; }
             } else {
-                if (_.has(faces, msg.arguments[0])) { face = faces[msg.arguments[0]]; }
-                else { face = faces["shrug"] + " No such textface"; }
+                if (msg.arguments.length > 1) {
+                    for (let textface of msg.arguments) {
+                        if (_.has(faces, textface)) { face += faces[textface] + ' '; }
+                    }
+                } else {
+                    if (_.has(faces, msg.arguments[0])) { face = faces[msg.arguments[0]]; }
+                    else { face = faces["shrug"] + " No such textface"; }
+                }
             }
         } else {
             face = _.sample(faces);
         }
 
-        Bot.smartEdit(msg, face, 50);
+        Bot.smartEdit(msg, face, 150);
     });
 }
 
