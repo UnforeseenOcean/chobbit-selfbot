@@ -6,7 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Eetu Raunio <me@concernedhobbit.eu>",
+  "author": {
+    "name": "Eetu Raunio",
+    "email": "me@concernedhobbit.eu",
+    "url": "https://concernedhobbit.eu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ConcernedHobbit/chobbit-selfbot.git"
+  },
   "license": "MIT",
   "dependencies": {
     "config": "^1.21.0",
