@@ -6,7 +6,7 @@ triggers = ["test", "testificate"];
 
 run = function(Bot, msg) {
     return new Promise((resolve, reject) => {
-        Bot.editMessage(msg.channel.id, msg.author.id, `${Emoji.rose} A rose for you, my love.`);
+        Bot.smartEdit(msg, `${Emoji.rose} A rose for you, my love.`);
         resolve(`${Emoji.rose} A rose for you, my love.`);
     });
 }

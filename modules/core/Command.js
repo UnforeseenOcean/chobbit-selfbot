@@ -8,7 +8,7 @@ class Command {
 
         this.name = name;
         this.desc = desc;
-        this.description = description;
+        this.description = desc;
         this.triggers = triggers;
         this.run = run;
     }
@@ -21,3 +21,5 @@ class Command {
         });
     }
 }
+
+module.exports = Command;
