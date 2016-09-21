@@ -83,7 +83,6 @@ class CommandHandler {
 
             this.unload(name)
                 .then(res => {
-                    console.log(`Calling load with (${res.name} ${typeof res.name}) ${res.path} (${typeof res.path})`) // DEV
                     this.load(res.path, true).then(name => {
                         resolve(name);
                     }).catch(err => reject(err));
