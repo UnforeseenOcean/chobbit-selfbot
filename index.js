@@ -23,8 +23,8 @@ Bot.commandHandler = new CommandHandler(Bot, "../commands/");
 Bot.timing = { timing_start: Date.now() };
 
 // Because Discord sucks
-Bot.smartEdit = function(msg, edit) {
-    setTimeout(() => Bot.editMessage(msg.channel.id, msg.id, edit), 500);
+Bot.smartEdit = function(msg, edit, delay=500) {
+    setTimeout(() => Bot.editMessage(msg.channel.id, msg.id, edit), delay);
 }
 
 // Because retyping it every time sucks
