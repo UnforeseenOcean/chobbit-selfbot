@@ -53,17 +53,21 @@ class CommandHandler {
         });
     }
 
-    unload(name, path=false) {
+    unload(name) {
         return new Promise((resolve, reject) => {
-            /*
-                TODO:
-                - check if valid arguments
-                - check if actually loaded
-                    - remove from require cache
-                    - remove from this.loaded
-                    - remove triggers
-            */
-            throw new Error("Not Implemented");
+            if (!_.isString(name)) throw new Error("Invalid arguments");
+            if (!this.is_loaded(name)) throw new Error("Not loaded");
+
+            let temp = this.loaded[name];
+
+            delete require.cache[require.resolve(temp.path)];
+            delete this.loaded[name];
+            
+            for (let trigger of temp.triggers) {
+                delete this.triggers[trigger];
+            }
+
+            resolve(name, temp.path);
         });
     }
 
