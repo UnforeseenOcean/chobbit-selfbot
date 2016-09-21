@@ -1,0 +1,13 @@
+{
+    "app": {
+        "version": "0.1 Aleph"
+    },
+    "discord": {
+        "token": "DISCORD_TOKEN",
+        "prefixes": ["§"],
+        "authorized": ["YOUR_ID"]
+    },
+    "parser": {
+        "link_characters": ["\""]
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "chobbit-selfbot",
+  "version": "0.0.1",
+  "description": "A NodeJS Discord robot that runs on an user account (\"selfbot\")",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eetu Raunio <me@concernedhobbit.eu>",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^1.21.0",
+    "eris": "^0.3.0",
+    "node-emoji": "^1.4.1",
+    "underscore": "^1.8.3"
+  }
+}
